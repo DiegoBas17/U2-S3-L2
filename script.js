@@ -62,18 +62,23 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 }); */
 
-/* console.log(Date.now()); */
-/* const timestart = Date.now();
-function Tempo() {
-  sessionStorage.setItem("Time", JSON.stringify(timestart));
-  const millis = Date.now() - timestart;
-  console.log(`seconds elapsed = ${Math.floor(millis / 1000)}`);
-  setTimeout(Tempo, 1000);
+let timestart = sessionStorage.getItem("TimeStart");
+if (timestart === null) {
+  timestart = Date.now();
+  sessionStorage.setItem("TimeStart", timestart);
+} else {
+  timestart = parseInt(timestart);
 }
-Tempo();
- */
+function tempo() {
+  const diffMillisecondi = Date.now() - timestart;
+  const secondiPassati = Math.floor(diffMillisecondi / 1000);
+  const counterTime = document.getElementById("counterTime");
+  counterTime.innerText = `Secondi Passati: ${secondiPassati}`;
+  setTimeout(tempo, 1000);
+}
+tempo();
 
-let time = 0;
+/* let time = 0;
 
 setInterval(() => {
   time++;
@@ -91,4 +96,4 @@ window.addEventListener("DOMContentLoaded", () => {
   if (timeFromStorage) {
     time = timeFromStorage;
   }
-});
+}); */
