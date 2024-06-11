@@ -36,3 +36,13 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/* console.log(Date.now()); */
+const timestart = Date.now();
+function Tempo() {
+  sessionStorage.setItem("Time", JSON.stringify(timestart));
+  const millis = Date.now() - timestart;
+  console.log(`seconds elapsed = ${Math.floor(millis / 1000)}`);
+  setTimeout(Tempo, 1000);
+}
+Tempo();
