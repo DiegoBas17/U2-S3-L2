@@ -5,6 +5,26 @@ const userForm = document.getElementById("userForm");
 
 let names = [];
 
+function displayNames() {
+  const sezioneH1 = document.getElementById("sezioneh1");
+  const sezioneH2 = document.getElementById("sezioneh2");
+
+  sezioneH1.innerHTML = "";
+  sezioneH2.innerHTML = "";
+
+  if (names.length > 0) {
+    const titolo = document.createElement("h1");
+    titolo.innerText = "Nomi utenti salvati:";
+    sezioneH1.appendChild(titolo);
+
+    names.forEach((nome) => {
+      const nomeh2 = document.createElement("h2");
+      nomeh2.innerText = nome;
+      sezioneH2.appendChild(nomeh2);
+    });
+  }
+}
+
 userForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -13,13 +33,18 @@ userForm.addEventListener("submit", (event) => {
   names.push(nomeUtenteInserito);
   localStorage.setItem("nomeUtentiSalvati", JSON.stringify(names));
   nomeUtente.value = "";
+  displayNames();
 });
 
 clearButton.addEventListener("click", () => {
   localStorage.clear();
+  names = [];
+  displayNames();
 });
-
 window.addEventListener("DOMContentLoaded", () => {
+  displayNames();
+});
+/* window.addEventListener("DOMContentLoaded", () => {
   const seEsisteUnNomeInserito = localStorage.getItem("nomeUtentiSalvati");
   if (seEsisteUnNomeInserito) {
     const nomiArray = JSON.parse(seEsisteUnNomeInserito);
@@ -35,10 +60,10 @@ window.addEventListener("DOMContentLoaded", () => {
       sezioneH2.appendChild(nomeh2);
     });
   }
-});
+}); */
 
 /* console.log(Date.now()); */
-const timestart = Date.now();
+/* const timestart = Date.now();
 function Tempo() {
   sessionStorage.setItem("Time", JSON.stringify(timestart));
   const millis = Date.now() - timestart;
@@ -46,3 +71,24 @@ function Tempo() {
   setTimeout(Tempo, 1000);
 }
 Tempo();
+ */
+
+let time = 0;
+
+setInterval(() => {
+  time++;
+  console.log(time);
+  sessionStorage.setItem("Tempo", time);
+}, 1000);
+
+window.addEventListener("DOMContentLoaded", () => {
+  const nameFromStorage = localStorage.getItem("Nome");
+  if (nameFromStorage) {
+    h1.innerHTML = localStorage.getItem("Nome");
+  }
+  const timeFromStorage = sessionStorage.getItem("Tempo");
+
+  if (timeFromStorage) {
+    time = timeFromStorage;
+  }
+});
